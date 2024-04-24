@@ -1,0 +1,34 @@
+
+@layer tailwind-base, primereact, tailwind-utilities;
+
+@layer tailwind-base {
+    @tailwind base;
+}
+
+@layer tailwind-utilities {
+    @tailwind components;
+    @tailwind utilities;
+}
+
+
+.leaflet-container {
+  width: 100%;
+  height: 40vh;
+
+}
+html {
+  font-size: 14px;
+}
+
+
+.p-toast-message-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.p-toast-message-content {
+  border-width: 0
+}
+
+
+      
