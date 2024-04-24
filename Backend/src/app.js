@@ -4,11 +4,12 @@ import authRoutes from './routes/auth.routes.js';
 import clientsRoutes from './routes/clients.routes.js';
 import cookieParser from 'cookie-parser'
 import cors from 'cors';
+import { URL_FRONT } from "./config.js";
 
 const app = express();
 
 //middlewares por defecto
-app.use(cors({origin: 'http://localhost:5173',credentials: true}));
+app.use(cors({origin: URL_FRONT,credentials: true}));
 app.use(morgan('dev')); 
 app.use(express.json()); 
 app.use(cookieParser());
