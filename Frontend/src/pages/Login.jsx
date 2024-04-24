@@ -30,6 +30,10 @@ export default function LoginForm() {
     }
   });
 
+  const API_URL = import.meta.env.VITE_URL_API;
+
+  console.log(`API URL: ${API_URL}`);
+
 
   return (
     <div className="bg-gradient-to-b from-blue-950 to-slate-500 h-screen overflow-hidden flex items-center justify-center">
