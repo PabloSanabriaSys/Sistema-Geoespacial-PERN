@@ -20,7 +20,7 @@ export const register = async (req, res) => {
     // Creamos el Token
     const token = await createAccessToken({ id: nuevoUsuario.id });
 
-    res.cookie('token', token);
+    res.cookie('token', token,{  maxAge: 60*60*24 }); // 1 dia
     return res.status(201).json({ mensaje: 'Usuario registrado correctamente', user: nuevoUsuario });
 
   } catch (error) {
@@ -42,7 +42,7 @@ export const login = async (req, res) => {
     if (!contrasenaValida) return res.status(401).json({ mensaje: 'Nombre de usuario o contraseña incorrectos' });
 
     const token = await createAccessToken({ id: usuario.id });
-    res.cookie('token', token);
+    res.cookie('token', token,{  maxAge: 60*60*24 }); // 1 dia
     res.status(200).json({ mensaje: 'Inicio de sesión exitoso', user: usuario });
 
   } catch (error) {
