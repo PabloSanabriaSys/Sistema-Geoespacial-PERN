@@ -2,6 +2,7 @@
 export const PORT = process.env.PORT || 4000;
 export const SECRET = process.env.SECRET || 'yarayala';
 export const URL_FRONT = process.env.URL_FRONT || 'http://localhost:5173';
+export const DOMAIN = process.env.DOMAIN || 'localhost';
 
 
 export const user = process.env.DB_USER || '';

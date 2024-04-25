@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt'
 import { createAccessToken } from '../libs/jwt.js';
 import UserModel from '../models/user.model.js';
 import DireccionModel from '../models/direccion.model.js';
+import { DOMAIN } from '../config.js';
 
 export const register = async (req, res) => {
   const { nombre_usuario, contrasena, lat, log } = req.body
@@ -20,7 +21,7 @@ export const register = async (req, res) => {
     // Creamos el Token
     const token = await createAccessToken({ id: nuevoUsuario.id });
 
-    res.cookie('token', token,{  maxAge: 60*60*24 }); // 1 dia
+    res.cookie('token', token, { maxAge: 60 * 60 * 24 * 1000, domain: DOMAIN }); // 1 dia
     return res.status(201).json({ mensaje: 'Usuario registrado correctamente', user: nuevoUsuario });
 
   } catch (error) {
@@ -42,7 +43,7 @@ export const login = async (req, res) => {
     if (!contrasenaValida) return res.status(401).json({ mensaje: 'Nombre de usuario o contraseña incorrectos' });
 
     const token = await createAccessToken({ id: usuario.id });
-    res.cookie('token', token,{  maxAge: 60*60*24 }); // 1 dia
+    res.cookie('token', token, { maxAge: 60 * 60 * 24 * 1000, domain: DOMAIN }); // 1 dia
     res.status(200).json({ mensaje: 'Inicio de sesión exitoso', user: usuario });
 
   } catch (error) {
