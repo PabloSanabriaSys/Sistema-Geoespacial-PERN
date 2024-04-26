@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from "react-leaflet";
 import L from "leaflet"; // Importa Leaflet
 import "leaflet/dist/leaflet.css";
-import { getClients } from '../../api/client';
+import { getClients, getDirection } from '../../api/client';
 import customIcon from "/imagenes/position2.png";
 import ButtonLateral from "../../components/ButtonLateral";
 import Title from '../../components/ui/Title';
@@ -18,6 +18,7 @@ const customMarkerIcon = new L.Icon({
 export default function UbicationClient() {
     const [clientLocations, setClientLocations] = useState([]);
     const [darkMode, setDarkMode] = useState(false);
+    const [geojsonData, setGeojsonData] = useState(null);
 
     useEffect(() => {
         async function fetchClientLocations() {
@@ -34,6 +35,11 @@ export default function UbicationClient() {
 
                 // Filtrar las ubicaciones con posición válida
                 const validLocations = locations.filter(location => location.position);
+
+                const response2 = await getDirection();
+                const data = await response2.data;
+                console.log((data))
+                setGeojsonData(data);
 
                 setClientLocations(validLocations);
             } catch (error) {
@@ -73,6 +79,8 @@ export default function UbicationClient() {
                         <Popup>{location.name}</Popup>
                     </Marker>
                 ))}
+                {geojsonData && <GeoJSON data={geojsonData} />}
+
             </MapContainer>
             <ButtonLateral />
         </div>

@@ -17,7 +17,7 @@ class DireccionModel {
     };
 
     async getDireccionByUser(userId) {
-        const client = pool.connect()
+        const client = await pool.connect();
         try {
             const query = 'SELECT latitud, longitud FROM direccion WHERE usuario_id = $1';
             const result = await pool.query(query, [userId]);
@@ -28,7 +28,23 @@ class DireccionModel {
             throw new Error('Error creando el usuario: ' + error.message);
 
         } finally {
-            await client.release();
+            client.release();
+        }
+    }
+
+    async getMunicipios() {
+        const client = await pool.connect()
+        try {
+            const query = "SELECT ST_AsGeoJSON(geom) AS geojson FROM municipal WHERE departamen = 'Cochabamba'";
+            const result = await pool.query(query);
+            console.log(result.rows)
+            return result.rows.map(row => row.geojson);
+
+        } catch (error) {
+            throw new Error('Error creando en la direccion: ' + error.message);
+
+        } finally {
+            client.release();
         }
     }
 

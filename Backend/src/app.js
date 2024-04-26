@@ -2,6 +2,7 @@ import express  from "express";
 import morgan from 'morgan';
 import authRoutes from './routes/auth.routes.js';
 import clientsRoutes from './routes/clients.routes.js';
+import directionRoutes from './routes/direction.routes.js';
 import cookieParser from 'cookie-parser'
 import cors from 'cors';
 import { URL_FRONT } from "./config.js";
@@ -17,6 +18,7 @@ app.use(cookieParser());
 //Rutas
 app.use('/api',authRoutes);
 app.use('/api',clientsRoutes);
+app.use('/api',directionRoutes);
 
 
 app.get('/',(req,res)=>{
