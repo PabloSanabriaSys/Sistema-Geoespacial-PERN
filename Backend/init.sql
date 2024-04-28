@@ -74,3 +74,7 @@ SELECT
     -66.1561 + RANDOM() * 0.18 as longitud,
     id
 FROM usuario WHERE usuario.id>2;
+
+-- Modificamos la tabla direcciones para agregarle informacion geométrica 
+ALTER TABLE direccion ADD COLUMN geom GEOMETRY(Point, 4326);
+UPDATE direccion SET geom = ST_SetSRID(ST_MakePoint(longitud, latitud), 4326);

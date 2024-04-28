@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from "react-leaflet";
 import L from "leaflet"; // Importa Leaflet
 import "leaflet/dist/leaflet.css";
-import { getClients, getDirection } from '../../api/client';
+import { getClients } from '../../api/client';
 import customIcon from "/imagenes/position2.png";
 import ButtonLateral from "../../components/ButtonLateral";
 import Title from '../../components/ui/Title';
+import { useThema } from "../../contexts/ThemaContext";
 
 // Define el ícono personalizado
 const customMarkerIcon = new L.Icon({
@@ -17,8 +18,9 @@ const customMarkerIcon = new L.Icon({
 
 export default function UbicationClient() {
     const [clientLocations, setClientLocations] = useState([]);
-    const [darkMode, setDarkMode] = useState(false);
-    const [geojsonData, setGeojsonData] = useState(null);
+    const [customers, setCustomers] = useState(null);
+    const { theme } = useThema();
+
 
     useEffect(() => {
         async function fetchClientLocations() {
@@ -35,13 +37,8 @@ export default function UbicationClient() {
 
                 // Filtrar las ubicaciones con posición válida
                 const validLocations = locations.filter(location => location.position);
-
-                const response2 = await getDirection();
-                const data = await response2.data;
-                console.log((data))
-                setGeojsonData(data);
-
                 setClientLocations(validLocations);
+                setCustomers(clients);
             } catch (error) {
                 console.log('Error al obtener ubicaciones de clientes', error);
             }
@@ -50,21 +47,7 @@ export default function UbicationClient() {
         fetchClientLocations();
     }, []);
 
-    useEffect(() => {
-        function handleThemeChange() {
-            setDarkMode(document.body.classList.contains('dark'));
-        }
 
-        handleThemeChange(); // Verifica el tema actual al cargar la página
-
-        // Escucha los cambios en el tema
-        document.body.addEventListener('themechange', handleThemeChange);
-
-        return () => {
-            // Remueve el event listener cuando el componente se desmonta
-            document.body.removeEventListener('themechange', handleThemeChange);
-        };
-    }, []);
 
     return (
         <div className="sm:px-20 py-10 px-2 overflow-hidden" style={{ height: "100vh" }}>
@@ -72,17 +55,17 @@ export default function UbicationClient() {
             <MapContainer center={[-17.3959409, -66.1549126]} zoom={12} style={{ width: "100%", height: "80%", zIndex: "1", borderRadius: "0.375rem" }}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url={darkMode ? "https://api.maptiler.com/maps/ch-swisstopo-lbm-dark/256/{z}/{x}/{y}.png?key=quWUEdEIncmujSQycJWP" : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}
+                    url={theme==='dark' ? "https://api.maptiler.com/maps/ch-swisstopo-lbm-dark/256/{z}/{x}/{y}.png?key=quWUEdEIncmujSQycJWP" : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}
                 />
                 {clientLocations.map(location => (
                     <Marker key={location.id} position={location.position} icon={customMarkerIcon}>
                         <Popup>{location.name}</Popup>
                     </Marker>
                 ))}
-                {geojsonData && <GeoJSON data={geojsonData} />}
-
+                <div style={{ position: "absolute", top: "5px", right: "5px", zIndex: "1000" }}>
+                    <ButtonLateral customers={customers} />
+                </div>
             </MapContainer>
-            <ButtonLateral />
         </div>
     );
 }

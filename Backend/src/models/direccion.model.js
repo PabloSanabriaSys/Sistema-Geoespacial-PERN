@@ -5,7 +5,7 @@ class DireccionModel {
         const client = await pool.connect();
         try {
             const { lat, log, userId } = data;
-            const query = 'INSERT INTO direccion (latitud, longitud, usuario_id) VALUES ($1, $2, $3) RETURNING *';
+            const query = 'INSERT INTO direccion (latitud, longitud, usuario_id, geom) VALUES ($1, $2, $3, ST_SetSRID(ST_MakePoint($2, $1), 4326)) RETURNING *';
             const values = [lat, log, userId];
             const result = await client.query(query, values);
             return result.rows[0];
@@ -35,13 +35,171 @@ class DireccionModel {
     async getMunicipios() {
         const client = await pool.connect()
         try {
-            const query = "SELECT ST_AsGeoJSON(geom) AS geojson FROM municipal WHERE departamen = 'Cochabamba'";
+            const query = `
+                SELECT 
+                    ST_AsGeoJSON(geom) AS geojson,
+                    municipio as nombre
+                FROM  municipal 
+                WHERE  departamen = 'Cochabamba'
+            `;
             const result = await pool.query(query);
-            console.log(result.rows)
-            return result.rows.map(row => row.geojson);
+            return result.rows.map(row => ({
+                ...JSON.parse(row.geojson),
+                properties: { nombre: row.nombre }
+            }));
 
         } catch (error) {
-            throw new Error('Error creando en la direccion: ' + error.message);
+            throw new Error('Error obteniendo en la direccion: ' + error.message);
+
+        } finally {
+            client.release();
+        }
+    }
+
+    async getMunicipio(municipioName) {
+        const client = await pool.connect()
+        try {
+            const query = `SELECT ST_AsGeoJSON(municipal.geom) AS geojson FROM municipal WHERE municipal.municipio = $1`;
+            const result = await pool.query(query, [municipioName]);
+            //console.log(result.rows)
+            return result.rows.map(row => ({
+                ...JSON.parse(row.geojson),
+                properties: { nombre: municipioName }
+            }))[0];
+
+        } catch (error) {
+            throw new Error('Error obteniendo en la direccion: ' + error.message);
+
+        } finally {
+            client.release();
+        }
+    }
+
+    async getCantones() {
+        const client = await pool.connect()
+        try {
+            const query = `
+                SELECT 
+                    ST_AsGeoJSON(geom) AS geojson,
+                    canton as nombre
+                FROM  cantones_geo 
+                WHERE  departamen = 'Cochabamba'
+            `;
+            const result = await pool.query(query);
+            return result.rows.map(row => ({
+                ...JSON.parse(row.geojson),
+                properties: { nombre: row.nombre }
+            }));
+
+        } catch (error) {
+            throw new Error('Error obteniendo en la direccion: ' + error.message);
+
+        } finally {
+            client.release();
+        }
+    }
+
+    async getCanton(cantonName) {
+        const client = await pool.connect()
+        try {
+            const query = `SELECT ST_AsGeoJSON(cantones_geo.geom) AS geojson FROM cantones_geo WHERE cantones_geo.canton = $1`;
+            const result = await pool.query(query, [cantonName]);
+            //console.log(result.rows)
+            return result.rows.map(row => ({
+                ...JSON.parse(row.geojson),
+                properties: { nombre: cantonName }
+            }))[0];
+
+        } catch (error) {
+            throw new Error('Error obteniendo en la direccion: ' + error.message);
+
+        } finally {
+            client.release();
+        }
+    }
+
+
+    async getOTBs() {
+        const client = await pool.connect()
+        try {
+            const query = `
+                SELECT 
+                    ST_AsGeoJSON(geom) AS geojson,
+                    canton as nombre
+                FROM  cantones_geo 
+                WHERE  departamen = 'Cochabamba'
+            `;
+            const result = await pool.query(query);
+            return result.rows.map(row => ({
+                ...JSON.parse(row.geojson),
+                properties: { nombre: row.nombre }
+            }));
+
+        } catch (error) {
+            throw new Error('Error obteniendo en la direccion: ' + error.message);
+
+        } finally {
+            client.release();
+        }
+    }
+
+    async getOTB(otbName) {
+        const client = await pool.connect()
+        try {
+            const query = `SELECT ST_AsGeoJSON(cantones_geo.geom) AS geojson FROM cantones_geo WHERE cantones_geo.canton = $1`;
+            const result = await pool.query(query, [otbName]);
+            //console.log(result.rows)
+            return result.rows.map(row => ({
+                ...JSON.parse(row.geojson),
+                properties: { nombre: otbName }
+            }))[0];
+
+        } catch (error) {
+            throw new Error('Error obteniendo en la direccion: ' + error.message);
+
+        } finally {
+            client.release();
+        }
+    }
+
+
+    async getManzanos() {
+        const client = await pool.connect()
+        try {
+            const query = `
+                SELECT 
+                    ST_AsGeoJSON(geom) AS geojson,
+                    gid as nombre
+                FROM  manzanos2 
+                WHERE  municpios = 'Cochabamba'
+            `;
+            const result = await pool.query(query);
+            return result.rows.map(row => ({
+                ...JSON.parse(row.geojson),
+                properties: { nombre: row.nombre }
+            }));
+
+        } catch (error) {
+            throw new Error('Error obteniendo en la direccion: ' + error.message);
+
+        } finally {
+            client.release();
+        }
+    }
+
+    async getManzano(manzanoName) {
+        const client = await pool.connect()
+        try {
+            const query = `SELECT ST_AsGeoJSON(manzanos2.geom) AS geojson FROM manzanos2 WHERE manzanos2.gid = $1`;
+            const result = await pool.query(query, [manzanoName]);
+            //console.log(result.rows)
+            return result.rows.map(row => ({
+                ...JSON.parse(row.geojson),
+                properties: { nombre: manzanoName }
+            }))[0];
+
+        } catch (error) {
+            throw new Error('Error obteniendo en la direccion: ' + error.message);
 
         } finally {
             client.release();

@@ -94,22 +94,36 @@ export function Sidebar(props) {
           command: () => { nav("/clientes"); },
         },
         {
-          label: 'Ubicar en el Mapa',
+          label: 'Mapa',
           icon: 'pi pi-map',
           template: itemRenderer,
           command: () => { nav("/clientes/mapa"); },
         },
         {
-          label: 'Sent',
-          icon: 'pi pi-send',
-          shortcut: '⌘+S',
-          template: itemRenderer
+          label: 'Mapa Municipios',
+          icon: 'pi pi-map',
+          template: itemRenderer,
+          command: () => { nav("/clientes/mapa/municipios"); },
         },
         {
-          label: 'Trash',
-          icon: 'pi pi-trash',
-          template: itemRenderer
-        }
+          label: 'Mapa Cantones',
+          icon: 'pi pi-map',
+          template: itemRenderer,
+          command: () => { nav("/clientes/mapa/cantones"); },
+        },
+        {
+          label: 'Mapa OTBS',
+          icon: 'pi pi-map',
+          template: itemRenderer,
+          command: () => { nav("/clientes/mapa/OTBs"); },
+        },
+        {
+          label: 'Mapa Manzanos',
+          icon: 'pi pi-map',
+          template: itemRenderer,
+          command: () => { nav("/clientes/mapa/manzanos"); },
+        },
+
       ]
     },
     {

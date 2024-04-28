@@ -91,6 +91,27 @@ class UserModel {
             client.release();
         }
     }
+
+    async getUsersByDirection(sectionName,colName,section) {
+        const client = await pool.connect()
+        try {
+            const query = `SELECT usuario.*,longitud,latitud
+            FROM direccion
+            JOIN `+sectionName+` ON ST_Contains(`+sectionName+`.geom, direccion.geom)
+            JOIN usuario ON direccion.usuario_id = usuario.id 
+            WHERE `+sectionName+`.`+colName+` = $1
+            `;
+            const result = await pool.query(query,[section]);
+            //console.log(result.rows)
+            return result.rows;
+
+        } catch (error) {
+            throw new Error('Error creando en la direccion: ' + error.message);
+
+        } finally {
+            client.release();
+        }
+    }
 }
 
 export default new UserModel();

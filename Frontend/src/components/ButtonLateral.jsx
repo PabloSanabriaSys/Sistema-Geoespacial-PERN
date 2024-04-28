@@ -1,54 +1,25 @@
 
-import React, { useRef } from 'react';
-import { SpeedDial } from 'primereact/speeddial';
+import React, { useRef, useState } from 'react';
+import { Sidebar } from 'primereact/sidebar';
 import { Toast } from 'primereact/toast';
+import { Button } from 'primereact/button';
+import ListSm from './ListSm';
 
-export default function ButtonLateral() {
+export default function ButtonLateral({customers}) {
     const toast = useRef(null);
-    const items = [
-        {
-            label: 'Add',
-            icon: 'pi pi-pencil',
-            command: () => {
-                toast.current.show({ severity: 'info', summary: 'Add', detail: 'Data Added' });
-            }
-        },
-        {
-            label: 'Update',
-            icon: 'pi pi-refresh',
-            command: () => {
-                toast.current.show({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
-            }
-        },
-        {
-            label: 'Delete',
-            icon: 'pi pi-trash',
-            command: () => {
-                toast.current.show({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
-            }
-        },
-        {
-            label: 'Upload',
-            icon: 'pi pi-upload',
-            command: () => {
-                toast.current.show({ severity: 'info', summary: 'Add', detail: 'Data Added',life: 30000 });
-            }
-        },
-        {
-            label: 'React Website',
-            icon: 'pi pi-external-link',
-            command: () => {
-                toast.current.show({ severity: 'info', summary: 'Add', detail: 'Data Added' });
-            }
-        }
-    ];
+    const [visibleRight, setVisibleRight] = useState(false);
+
 
     return (
-        <div className="card">
+        <div className="card" >
             <div style={{ position: '', height: '' }}>
                 <Toast ref={toast} />
-                <SpeedDial model={items} radius={80} type='semi-circle' direction="left" style={{ top: 'calc(50% - 2rem)', right: 20 }} />
+                <Button icon="pi pi-arrow-left" onClick={() => setVisibleRight(true)} />
             </div>
+            <Sidebar visible={visibleRight} position="right" onHide={() => setVisibleRight(false)}>
+                <h2>Left Sidebar</h2>
+                <ListSm customers={customers}/>
+            </Sidebar>
         </div>
     )
 }

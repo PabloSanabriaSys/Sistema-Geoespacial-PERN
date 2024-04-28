@@ -18,6 +18,9 @@ import ContactUser from './pages/pagesUserClient/ContactUser.jsx';
 import AboutUs from './pages/pagesUserClient/AboutUs.jsx';
 import InitClient from './pages/pagesUserClient/InitClient.jsx';
 import PrivateRouteClient from './pages/PrivateRouteClient.jsx';
+import UbicationClientMunicipios from './pages/Clients/UbicationClientMunicipios.jsx';
+import UbicationClientCantones from './pages/Clients/UbicationClientCantones.jsx';
+import UbicationClientManzanos from './pages/Clients/UbicationClientManzanos.jsx';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +51,22 @@ const router = createBrowserRouter([
           },
           {
             path: "clientes/mapa",
+            element: <UbicationClient />,
+          },
+          {
+            path: "clientes/mapa/municipios",
+            element: <UbicationClientMunicipios />,
+          },
+          {
+            path: "clientes/mapa/cantones",
+            element: <UbicationClientCantones />,
+          },
+          {
+            path: "clientes/mapa/manzanos",
+            element: <UbicationClientManzanos />,
+          },
+          {
+            path: "clientes/mapa/otbs",
             element: <UbicationClient />,
           },
           {
