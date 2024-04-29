@@ -1,13 +1,12 @@
-
 @layer tailwind-base, primereact, tailwind-utilities;
 
 @layer tailwind-base {
-    @tailwind base;
+  @tailwind base;
 }
 
 @layer tailwind-utilities {
-    @tailwind components;
-    @tailwind utilities;
+  @tailwind components;
+  @tailwind utilities;
 }
 
 
@@ -16,6 +15,7 @@
   height: 40vh;
 
 }
+
 html {
   font-size: 14px;
 }
@@ -30,5 +30,18 @@ html {
   border-width: 0
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 
-      
+  background-color: #3b486b34;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(141, 141, 141);
+  border-radius: 6px;
+}
+
+
+

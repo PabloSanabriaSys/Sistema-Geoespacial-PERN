@@ -52,14 +52,14 @@ export default function ListSm({customers = []}) {
         );
     };
 
-    const header = renderHeader();
+    const header2 = renderHeader();
 
     return (
         <div className=''>
             <div className="card rounded-xl p-2  border dark:bg-slate-800 dark:border-slate-500">
-                <DataTable value={customers} paginator rows={10} header={header} filters={filters} onFilter={(e) => setFilters(e.filters)}
+                <DataTable value={customers} paginator rows={11} header={header2} filters={filters} onFilter={(e) => setFilters(e.filters)}
                     selection={selectedCustomer} onSelectionChange={(e) => setSelectedCustomer(e.value)} selectionMode="single" dataKey="id"
-                    stateStorage="session" stateKey="dt-state-demo-local" emptyMessage="Clientes no encontrados" tableStyle={{ minWidth: '25rem' }}>
+                    stateStorage="session" stateKey="dt-state-demo-local2" emptyMessage="Clientes no encontrados" tableStyle={{ minWidth: '25rem' }}>
                     <Column field="nombre_usuario" header="Nombre Usuario" sortable body={usernameBodyTemplate}  ></Column>
                     <Column field="nombres" header="Nombres" sortable body={nameBodyTemplate}></Column>
                 </DataTable>
