@@ -19,7 +19,8 @@ export function SidebarClient(props) {
       {
         label: 'Inicio',
         icon: 'pi pi-home',
-        template: itemRenderer
+        template: itemRenderer,
+        command: () => { nav("/VistaCliente"); },
       },
       {
         label: 'Productos',
@@ -37,7 +38,6 @@ export function SidebarClient(props) {
       {
         label: 'Quienes somos',
         icon: 'pi pi-user',
-        shortcut: '⌘+W',
         template: itemRenderer,
         command: () => { nav("/VistaCliente/acerca-de"); },
       }

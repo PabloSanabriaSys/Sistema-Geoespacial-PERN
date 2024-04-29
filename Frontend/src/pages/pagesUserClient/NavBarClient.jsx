@@ -5,10 +5,13 @@ import ChangeStyle from '../../components/ChangeStyle';
 import { Avatar } from 'primereact/avatar';
 import { TieredMenu } from 'primereact/tieredmenu';
 import { useAuth } from '../../contexts/Auth/AuthProvider';
+import { Badge } from 'primereact/badge';
 
 export function NavBarClient(props) {
   const menu = useRef(null);
   const {logout} = useAuth()
+  
+
   const items = [
     {
       label: 'Configuraciones',
@@ -46,6 +49,7 @@ export function NavBarClient(props) {
     },
     
   ];
+  
   return (
     <nav className="sticky top-0 z-50 flex-none w-full mx-auto bg-white border-b border-gray-200 dark:border-gray-600 dark:bg-gray-800">
       <div className="px-3 py-3 lg:px-5 lg:pl-3">
@@ -75,7 +79,13 @@ export function NavBarClient(props) {
                 </ul>
             </div>
           <div className="flex items-center space-x-10">
-            < ShoppingCartIcon className='w-6 h-6'/>
+            <div className='hidden sm:flex '>
+              <i className="pi pi-shopping-cart p-overlay-badge   " style={{ fontSize: '1.5rem' }}>
+                  <Badge value="5"></Badge>
+              </i>
+            </div>
+            
+           
             <div className="flex items-center ms-3 relative">
                    
               <ChangeStyle />
@@ -88,3 +98,4 @@ export function NavBarClient(props) {
     </nav>
   );
 }
+
