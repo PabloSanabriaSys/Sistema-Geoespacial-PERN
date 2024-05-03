@@ -15,6 +15,8 @@ export function Navbar(props) {
   const menu = useRef(null);
   const nav = useNavigate()
   const {logout} = useAuth()
+  const { user } = useAuth()
+  
   const items = [
     {
       label: 'Configuraciones',
@@ -52,7 +54,7 @@ export function Navbar(props) {
 
               <ChangeStyle />
               <TieredMenu model={items} popup ref={menu} breakpoint="767px" />
-              <Avatar className="ml-4" icon="pi pi-user" style={{ backgroundColor: '#2196F3', color: '#ffffff' }} shape="circle" onClick={(e) => menu.current.toggle(e)} />
+              <Avatar className="ml-4" image={ URL_API+'/image/'+user.foto_perfil} shape="circle" onClick={(e) => menu.current.toggle(e)} />
             </div>
           </div>
         </div>

@@ -6,16 +6,21 @@ import { Avatar } from 'primereact/avatar';
 import { TieredMenu } from 'primereact/tieredmenu';
 import { useAuth } from '../../contexts/Auth/AuthProvider';
 import { Badge } from 'primereact/badge';
+import { useNavigate } from "react-router-dom";
+import { URL_API } from '../../api/axios';
 
 export function NavBarClient(props) {
   const menu = useRef(null);
-  const {logout} = useAuth()
+  const {logout} = useAuth();
+  const nav = useNavigate();
+  const { user } = useAuth()
   
 
   const items = [
     {
       label: 'Configuraciones',
-      icon: 'pi pi-cog'
+      icon: 'pi pi-cog',
+      command: () => { nav('/VistaCliente/configuraciones') },
     },
     {
       separator: true
@@ -90,7 +95,7 @@ export function NavBarClient(props) {
                    
               <ChangeStyle />
               <TieredMenu model={items} popup ref={menu} breakpoint="767px" />
-              <Avatar className="ml-4" icon="pi pi-user" style={{ backgroundColor: '#2196F3', color: '#ffffff' }} shape="circle" onClick={(e) => menu.current.toggle(e)} />
+              <Avatar className="ml-4" image={ URL_API+'/image/'+user.foto_perfil} shape="circle" onClick={(e) => menu.current.toggle(e)} />
             </div>
           </div>
         </div>
