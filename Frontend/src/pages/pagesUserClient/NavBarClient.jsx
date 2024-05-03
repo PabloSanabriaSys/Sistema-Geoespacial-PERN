@@ -5,14 +5,22 @@ import ChangeStyle from '../../components/ChangeStyle';
 import { Avatar } from 'primereact/avatar';
 import { TieredMenu } from 'primereact/tieredmenu';
 import { useAuth } from '../../contexts/Auth/AuthProvider';
+import { Badge } from 'primereact/badge';
+import { useNavigate } from "react-router-dom";
+import { URL_API } from '../../api/axios';
 
 export function NavBarClient(props) {
   const menu = useRef(null);
-  const {logout} = useAuth()
+  const {logout} = useAuth();
+  const nav = useNavigate();
+  const { user } = useAuth()
+  
+
   const items = [
     {
       label: 'Configuraciones',
-      icon: 'pi pi-cog'
+      icon: 'pi pi-cog',
+      command: () => { nav('/VistaCliente/configuraciones') },
     },
     {
       separator: true
@@ -46,6 +54,7 @@ export function NavBarClient(props) {
     },
     
   ];
+  
   return (
     <nav className="sticky top-0 z-50 flex-none w-full mx-auto bg-white border-b border-gray-200 dark:border-gray-600 dark:bg-gray-800">
       <div className="px-3 py-3 lg:px-5 lg:pl-3">
@@ -75,12 +84,18 @@ export function NavBarClient(props) {
                 </ul>
             </div>
           <div className="flex items-center space-x-10">
-            < ShoppingCartIcon className='w-6 h-6'/>
+            <div className='hidden sm:flex '>
+              <i className="pi pi-shopping-cart p-overlay-badge   " style={{ fontSize: '1.5rem' }}>
+                  <Badge value="5"></Badge>
+              </i>
+            </div>
+            
+           
             <div className="flex items-center ms-3 relative">
                    
               <ChangeStyle />
               <TieredMenu model={items} popup ref={menu} breakpoint="767px" />
-              <Avatar className="ml-4" icon="pi pi-user" style={{ backgroundColor: '#2196F3', color: '#ffffff' }} shape="circle" onClick={(e) => menu.current.toggle(e)} />
+              <Avatar className="ml-4" image={ URL_API+'/image/'+user.foto_perfil} shape="circle" onClick={(e) => menu.current.toggle(e)} />
             </div>
           </div>
         </div>
@@ -88,3 +103,4 @@ export function NavBarClient(props) {
     </nav>
   );
 }
+

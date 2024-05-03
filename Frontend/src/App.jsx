@@ -103,6 +103,10 @@ const router = createBrowserRouter([
             path: "acerca-de",
             element: <AboutUs />,
           },
+          {
+            path: "Configuraciones",
+            element: <Setting />,
+          },
         ]
       },
     ],
