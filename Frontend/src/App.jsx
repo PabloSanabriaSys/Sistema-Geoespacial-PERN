@@ -21,6 +21,7 @@ import PrivateRouteClient from './pages/PrivateRouteClient.jsx';
 import UbicationClientMunicipios from './pages/Clients/UbicationClientMunicipios.jsx';
 import UbicationClientCantones from './pages/Clients/UbicationClientCantones.jsx';
 import UbicationClientManzanos from './pages/Clients/UbicationClientManzanos.jsx';
+import UbicationClientOTBS from './pages/Clients/UbicationClientOTBs.jsx';
 
 const router = createBrowserRouter([
   {
@@ -67,7 +68,7 @@ const router = createBrowserRouter([
           },
           {
             path: "clientes/mapa/otbs",
-            element: <UbicationClient />,
+            element: <UbicationClientOTBS />,
           },
           {
             path: "Configuraciones",

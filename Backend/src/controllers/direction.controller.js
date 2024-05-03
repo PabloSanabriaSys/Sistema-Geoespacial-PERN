@@ -66,7 +66,7 @@ export const getOTBs = async (req, res) => {
 export const getOTB = async (req, res) => {
     try {
         const OTBName = req.params.OTBName;
-        const usuarios = await UserModel.getUsersByDirection('manzanos2','gid',OTBName);
+        const usuarios = await UserModel.getUsersByDirection('departamentos','nom_dep',OTBName);
         const OTB = await direccionModel.getOTB(OTBName);
 
         res.json({OTB,usuarios})

@@ -125,9 +125,8 @@ class DireccionModel {
             const query = `
                 SELECT 
                     ST_AsGeoJSON(geom) AS geojson,
-                    canton as nombre
-                FROM  cantones_geo 
-                WHERE  departamen = 'Cochabamba'
+                    nom_dep as nombre
+                FROM  departamentos
             `;
             const result = await pool.query(query);
             return result.rows.map(row => ({
@@ -146,7 +145,7 @@ class DireccionModel {
     async getOTB(otbName) {
         const client = await pool.connect()
         try {
-            const query = `SELECT ST_AsGeoJSON(cantones_geo.geom) AS geojson FROM cantones_geo WHERE cantones_geo.canton = $1`;
+            const query = `SELECT ST_AsGeoJSON(geom) AS geojson FROM departamentos WHERE departamentos.nom_dep = $1`;
             const result = await pool.query(query, [otbName]);
             //console.log(result.rows)
             return result.rows.map(row => ({

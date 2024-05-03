@@ -17,7 +17,7 @@ export default function ButtonLateral({customers}) {
                 <Button icon="pi pi-arrow-left" onClick={() => setVisibleRight(true)} />
             </div>
             <Sidebar visible={visibleRight} position="right" onHide={() => setVisibleRight(false)}>
-                <h2>Left Sidebar</h2>
+                {customers ?<h2 className='text-center font-bold text-xl'>{customers.length} Usuarios</h2>:<h2 className='text-center font-bold text-xl'>0 Usuarios</h2>}
                 <ListSm customers={customers}/>
             </Sidebar>
         </div>

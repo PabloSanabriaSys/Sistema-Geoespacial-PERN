@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
 
 export default function PieChartDemo() {
-    const [chartData, setChartData] = useState({});
-    const [chartOptions, setChartOptions] = useState({});
+    const [chartData, setChartData] = useState(null);
+    const [chartOptions, setChartOptions] = useState(null);
 
     useEffect(() => {
         const documentStyle = getComputedStyle(document.documentElement);
@@ -14,13 +14,13 @@ export default function PieChartDemo() {
                 {
                     data: [540, 325, 702],
                     backgroundColor: [
-                        documentStyle.getPropertyValue('--blue-500'), 
-                        documentStyle.getPropertyValue('--yellow-500'), 
+                        documentStyle.getPropertyValue('--blue-500'),
+                        documentStyle.getPropertyValue('--yellow-500'),
                         documentStyle.getPropertyValue('--green-500')
                     ],
                     hoverBackgroundColor: [
-                        documentStyle.getPropertyValue('--blue-400'), 
-                        documentStyle.getPropertyValue('--yellow-400'), 
+                        documentStyle.getPropertyValue('--blue-400'),
+                        documentStyle.getPropertyValue('--yellow-400'),
                         documentStyle.getPropertyValue('--green-400')
                     ]
                 }
@@ -42,8 +42,7 @@ export default function PieChartDemo() {
 
     return (
         <div className="card flex justify-content-center">
-            <Chart type="pie" data={chartData} options={chartOptions} className="w-full md:w-30rem" />
+            {(chartData && chartData) && <Chart type="pie" data={chartData} options={chartOptions} className="w-full md:w-30rem" />}
         </div>
     )
 }
-        
