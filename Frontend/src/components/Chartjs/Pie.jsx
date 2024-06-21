@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
 
-export default function PieChartDemo() {
+export default function Pie() {
     const [chartData, setChartData] = useState(null);
     const [chartOptions, setChartOptions] = useState(null);
 
@@ -41,8 +41,8 @@ export default function PieChartDemo() {
     }, []);
 
     return (
-        <div className="card flex justify-content-center">
-            {(chartData && chartData) && <Chart type="pie" data={chartData} options={chartOptions} className="w-full md:w-30rem" />}
+        <div className="w-full h-full border rounded-lg  dark:bg-slate-800 dark:border-none card flex justify-center items-center m-auto">
+            {(chartData && chartOptions) && <Chart type="pie" data={chartData} options={chartOptions} className="h-[20rem] " />}
         </div>
     )
 }

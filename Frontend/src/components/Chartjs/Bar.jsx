@@ -54,6 +54,8 @@ export default function Bar() {
             };
 
         const options = theme === 'light' ? {
+            maintainAspectRatio: false,
+            aspectRatio: 0.8,
             scales: {
                 x: {
                 },
@@ -69,6 +71,8 @@ export default function Bar() {
                 }
             }
         } : {
+            maintainAspectRatio: false,
+            aspectRatio: 0.8,
             scales: {
                 x: {
                     grid: { color: 'rgba(180, 180, 180, 0.1)' }
@@ -94,7 +98,7 @@ export default function Bar() {
 
     return (
         <div className='p-2 border rounded-lg  dark:bg-slate-800 dark:border-none'>
-            {(chartData && chartData) && <Chart type="bar" data={chartData} options={chartOptions} />}
+            {(chartData && chartOptions) && <Chart type="bar" data={chartData} options={chartOptions} />}
         </div>
     )
 }
