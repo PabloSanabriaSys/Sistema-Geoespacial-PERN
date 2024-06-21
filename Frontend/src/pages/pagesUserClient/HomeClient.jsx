@@ -224,8 +224,8 @@ const comments = [
             <Carousel value={products} numVisible={5} numScroll={4} responsiveOptionsCarrusel={responsiveOptionsCarrusel} itemTemplate={productTemplate} />
           </div>
       </div> 
-      <h1 className='font-mono text-3xl p-6 text-center'>¡Lo que nuestros clientes opinan!<br/> Descubre por qué nos aman.</h1>
-      <div  className=" w-xl p-6 space-x-3 space-y-3 border-slate-800 rounded-xl grid grid-cols-1 md:grid-cols-3">
+      <h1 id="comentarios" className='font-mono text-3xl p-6 text-center'>¡Lo que nuestros clientes opinan!<br/> Descubre por qué nos aman.</h1>
+      <div   className=" w-xl p-6 space-x-3 space-y-3 border-slate-800 rounded-xl grid grid-cols-1 md:grid-cols-3">
           {comments.map((comment) => (
             <Fieldset key={comment.id} legend={
               <div className="flex items-center gap-2">
