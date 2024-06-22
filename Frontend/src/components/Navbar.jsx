@@ -103,6 +103,12 @@ export function Sidebar(props) {
           command: () => { nav("/clientes/mapa"); },
         },
         {
+          label: 'Mapa Departamentos',
+          icon: 'pi pi-map',
+          template: itemRenderer,
+          command: () => { nav("/clientes/mapa/OTBs"); },
+        },
+        {
           label: 'Mapa Municipios',
           icon: 'pi pi-map',
           template: itemRenderer,
@@ -114,12 +120,7 @@ export function Sidebar(props) {
           template: itemRenderer,
           command: () => { nav("/clientes/mapa/cantones"); },
         },
-        {
-          label: 'Mapa OTBS',
-          icon: 'pi pi-map',
-          template: itemRenderer,
-          command: () => { nav("/clientes/mapa/OTBs"); },
-        },
+        
         {
           label: 'Mapa Manzanos',
           icon: 'pi pi-map',

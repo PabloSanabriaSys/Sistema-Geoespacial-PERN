@@ -1,27 +1,31 @@
-
 import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
+const blue500 = 'rgba(59, 130, 246, 0.8)';
+const yellow500 = 'rgba(252, 211, 77, 0.8)';
+const green500 = 'rgba(75, 192, 192, 0.8)';
+const blue400 = 'rgba(59, 130, 246, 0.6)';
+const yellow400 = 'rgba(252, 211, 77, 0.6)';
+const green400 = 'rgba(75, 192, 192, 0.6)';
 
-export default function Pie() {
+export default function Pie({records = [540, 325, 702]}) {
     const [chartData, setChartData] = useState(null);
     const [chartOptions, setChartOptions] = useState(null);
 
     useEffect(() => {
-        const documentStyle = getComputedStyle(document.documentElement);
         const data = {
-            labels: ['A', 'B', 'C'],
+            labels: ['Cochabamba', 'Santa Cruz', 'La Paz'],
             datasets: [
                 {
-                    data: [540, 325, 702],
+                    data: records,
                     backgroundColor: [
-                        documentStyle.getPropertyValue('--blue-500'),
-                        documentStyle.getPropertyValue('--yellow-500'),
-                        documentStyle.getPropertyValue('--green-500')
+                        blue500,
+                        yellow500,
+                        green500
                     ],
                     hoverBackgroundColor: [
-                        documentStyle.getPropertyValue('--blue-400'),
-                        documentStyle.getPropertyValue('--yellow-400'),
-                        documentStyle.getPropertyValue('--green-400')
+                        blue400,
+                        yellow400,
+                        green400
                     ]
                 }
             ]
@@ -41,8 +45,12 @@ export default function Pie() {
     }, []);
 
     return (
-        <div className="w-full h-full border rounded-lg  dark:bg-slate-800 dark:border-none card flex justify-center items-center m-auto">
-            {(chartData && chartOptions) && <Chart type="pie" data={chartData} options={chartOptions} className="h-[20rem] " />}
+        <div className="w-full h-full border rounded-lg  dark:bg-slate-800 dark:border-none card flex flex-col  items-center m-auto">
+            <h3 className='text-2xl text-center font-extrabold  m-2 mt-5'>Clientes en Departamentos</h3>
+            <div className='h-full flex justify-center  items-center'>
+                {(chartData && chartOptions) && <Chart type="pie" data={chartData} options={chartOptions} className="h-[21rem] " />}
+
+            </div>
         </div>
     )
 }

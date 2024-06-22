@@ -1,8 +1,25 @@
-
 import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
 
-export default function Line() {
+const d = [
+    {
+        "month": "Enero",
+        "month_date": "2024-01-01T00:00:00",
+        "cantidad_clientes": 4
+    },
+    {
+        "month": "Febrero",
+        "month_date": "2024-02-01T00:00:00",
+        "cantidad_clientes": 3
+    },
+    {
+        "month": "Marzo",
+        "month_date": "2024-03-01T00:00:00",
+        "cantidad_clientes": 3
+    }
+];
+
+const Line = ({ records = d }) => {
     const [chartData, setChartData] = useState(null);
     const [chartOptions, setChartOptions] = useState(null);
 
@@ -11,34 +28,22 @@ export default function Line() {
         const textColor = documentStyle.getPropertyValue('--text-color');
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+        const surfaceColor = documentStyle.getPropertyValue('--surface-color');
+
         const data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            labels: records.map(entry => entry.month),
             datasets: [
                 {
-                    label: 'First Dataset',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    fill: false,
-                    tension: 0.4,
-                    borderColor: documentStyle.getPropertyValue('--blue-500')
-                },
-                {
-                    label: 'Second Dataset',
-                    data: [28, 48, 40, 19, 86, 27, 90],
-                    fill: false,
-                    borderDash: [5, 5],
-                    tension: 0.4,
-                    borderColor: documentStyle.getPropertyValue('--teal-500')
-                },
-                {
-                    label: 'Third Dataset',
-                    data: [12, 51, 62, 33, 21, 62, 45],
+                    label: 'Clientes Nuevos',
+                    data: records.map(entry => entry.cantidad_clientes),
                     fill: true,
                     borderColor: documentStyle.getPropertyValue('--orange-500'),
                     tension: 0.4,
-                    backgroundColor: 'rgba(255,167,38,0.2)'
+                    backgroundColor: 'rgba(255, 167, 38, 0.2)'
                 }
             ]
         };
+
         const options = {
             maintainAspectRatio: false,
             aspectRatio: 0.8,
@@ -51,20 +56,13 @@ export default function Line() {
             },
             scales: {
                 x: {
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder
-                    }
+                    grid: { color: 'rgba(180, 180, 180, 0.35)' }
                 },
                 y: {
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder
-                    }
+                    grid: { color: 'rgba(180, 180, 180, 0.35)' },
+                    label: { color: 'rgba(180, 180, 180, 0.9)' },
+                    beginAtZero: true
+                
                 }
             }
         };
@@ -74,9 +72,11 @@ export default function Line() {
     }, []);
 
     return (
-        <div className="p-2 border rounded-lg  dark:bg-slate-800 dark:border-none">
-            {(chartData && chartOptions) && <Chart type="line" data={chartData} options={chartOptions} />}
+        <div className="p-2 border rounded-lg dark:bg-slate-800 dark:border-none">
+            <h3 className="text-2xl text-center font-extrabold m-3">Clientes Nuevos según el Mes</h3>
+            {chartData && chartOptions && <Chart type="line" data={chartData} options={chartOptions} />}
         </div>
-    )
-}
-        
+    );
+};
+
+export default Line;

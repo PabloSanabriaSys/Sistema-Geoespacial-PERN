@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
 import { useThema } from '../../contexts/ThemaContext';
 
-export default function Bar() {
+export default function Bar({records = [540, 325, 702, 620]}) {
     const [chartData, setChartData] = useState(null);
     const [chartOptions, setChartOptions] = useState(null);
     const { theme } = useThema();
 
     useEffect(() => {
         const data = theme === 'light' ? {
-            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+            labels: ['Cochabamba', 'Quillacollo', 'Sacaba', 'Colcapirhua'],
             datasets: [
                 {
-                    label: 'Sales',
-                    data: [540, 325, 702, 620],
+                    label: 'Muncipios',
+                    data: records,
                     backgroundColor: [
                         'rgba(255, 159, 64, 0.2)',
                         'rgba(75, 192, 192, 0.2)',
@@ -27,15 +27,15 @@ export default function Bar() {
                         'rgb(153, 102, 255)'
                     ],
                     borderWidth: 1
-                }
+                },
             ]
         } :
             {
-                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                labels: ['Cochabamba', 'Quillacollo', 'Sacaba', 'Colcapirhua'],
                 datasets: [
                     {
-                        label: 'Sales',
-                        data: [540, 325, 702, 620],
+                        label: 'Municipio',
+                        data: records,
                         backgroundColor: [
                             'rgba(255, 159, 64, 0.4)',
                             'rgba(75, 192, 192, 0.4)',
@@ -54,6 +54,7 @@ export default function Bar() {
             };
 
         const options = theme === 'light' ? {
+            
             maintainAspectRatio: false,
             aspectRatio: 0.8,
             scales: {
@@ -88,7 +89,8 @@ export default function Bar() {
                     labels: {
                         color: 'white'
                     }
-                }
+                },
+
             }
         };
 
@@ -98,6 +100,7 @@ export default function Bar() {
 
     return (
         <div className='p-2 border rounded-lg  dark:bg-slate-800 dark:border-none'>
+            <h3 className='text-2xl text-center font-extrabold  m-3'>Clientes en Municipios</h3>
             {(chartData && chartOptions) && <Chart type="bar" data={chartData} options={chartOptions} />}
         </div>
     )

@@ -205,6 +205,66 @@ class DireccionModel {
         }
     }
 
+
+    async getTotalDataAmount() {
+        const client = await pool.connect()
+        try {
+            const query = `WITH clientes_por_mes AS (
+    SELECT 
+        TO_CHAR(DATE_TRUNC('month', created_at), 'TMMonth') AS month,
+        DATE_TRUNC('month', created_at) AS month_date,
+        COUNT(*) AS cantidad_clientes
+    FROM 
+        usuario
+    WHERE 
+        created_at >= '2024-01-01' AND created_at < '2024-08-01'
+    GROUP BY 
+        month_date
+    ORDER BY 
+        month_date
+)
+
+SELECT 
+    (SELECT COUNT(*) FROM usuario) AS total_clients,
+    (SELECT COUNT(*) FROM municipal WHERE departamen = 'Cochabamba') AS total_municipios,
+    (SELECT COUNT(*) FROM cantones_geo WHERE departamen = 'Cochabamba') AS total_cantones,
+    (SELECT COUNT(*) FROM manzanos2 WHERE municpios = 'Cochabamba') AS total_manzanos,
+    (SELECT COUNT(*) FROM direccion 
+     JOIN municipal ON ST_Contains(municipal.geom, direccion.geom) 
+     WHERE municipal.municipio = 'Cochabamba') AS m_cochabamba,
+    (SELECT COUNT(*) FROM direccion 
+     JOIN municipal ON ST_Contains(municipal.geom, direccion.geom) 
+     WHERE municipal.municipio = 'Quillacollo') AS m_quillacollo,
+    (SELECT COUNT(*) FROM direccion 
+     JOIN municipal ON ST_Contains(municipal.geom, direccion.geom) 
+     WHERE municipal.municipio = 'Sacaba') AS m_sacaba,
+    (SELECT COUNT(*) FROM direccion 
+     JOIN municipal ON ST_Contains(municipal.geom, direccion.geom) 
+     WHERE municipal.municipio = 'Colcapirhua') AS m_colcapirhua,
+    (SELECT COUNT(*) FROM direccion 
+     JOIN departamentos ON ST_Contains(departamentos.geom, direccion.geom) 
+     WHERE departamentos.nom_dep = 'COCHABAMBA') AS d_cochabamba,
+    (SELECT COUNT(*) FROM direccion 
+     JOIN departamentos ON ST_Contains(departamentos.geom, direccion.geom) 
+     WHERE departamentos.nom_dep = 'SANTA CRUZ') AS d_santacruz,
+    (SELECT COUNT(*) FROM direccion 
+     JOIN departamentos ON ST_Contains(departamentos.geom, direccion.geom) 
+     WHERE departamentos.nom_dep = 'LA PAZ') AS d_lapaz,
+    (SELECT json_agg(row_to_json(clientes_por_mes)) 
+     FROM clientes_por_mes) AS clientes_registrados_por_mes;
+	 ;`;
+            const result = await pool.query(query);
+            //console.log(result)
+            return result.rows[0];
+
+        } catch (error) {
+            throw new Error('Error obteniendo datos para el DashBoart: ' + error.message);
+
+        } finally {
+            client.release();
+        }
+    }
+
 }
 
 export default new DireccionModel();

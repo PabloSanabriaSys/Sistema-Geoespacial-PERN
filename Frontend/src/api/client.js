@@ -14,3 +14,6 @@ export const getOTBUser = async (OTBName) => axios.get(`/direction/OTB/${OTBName
 
 export const getManzanos = async () => await axios.get('/direction/manzano');
 export const getManznoUser = async (manzanoName) => axios.get(`/direction/manzano/${manzanoName}`);
+
+
+export const getTotalData = async () => await axios.get('/direction/getTotalDataAmount');

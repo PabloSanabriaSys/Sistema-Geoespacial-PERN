@@ -100,3 +100,14 @@ export const getManzano = async (req, res) => {
         res.status(500).json({ mensaje: 'Error del servidor' });
     }
 }
+
+export const getTotalDataAmount = async (req, res) => {
+    try {
+        const data = await direccionModel.getTotalDataAmount()
+
+        res.json(data)
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ mensaje: 'Error del servidor' });
+    }
+}
