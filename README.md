@@ -1,7 +1,7 @@
 # Sistema-Geoespacial-PERN
 
 <div style="display: flex; justify-content:center; align-items: center; ">
-    <img src="Media/logo.png" alt="logo" style="max-width: 250">
+    <img src="Media/logo.png" alt="logo" style="width: 200">
 </div>
 
 ## Descripción
