@@ -1,6 +1,8 @@
 # Sistema-Geoespacial-PERN
 
-![Logo](Media/logo.png)
+<div style="display: flex; justify-content:center; align-items: center;max-width: 250">
+    <img src="Media/logo.png" alt="logo">
+</div>
 
 ## Descripción
 Sistema web basado en la administracion de una farmacia, con un enfoque de analisis de mercado, para la toma de desiciones. Principalmente se enfoca en el registro de ubicacion de los usuarios y el analisis de datos con esta informacion.
