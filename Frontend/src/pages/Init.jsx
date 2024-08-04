@@ -11,9 +11,9 @@ function Init() {
         <div className={`min-h-screen dark:bg-slate-900`}>
             <ThemaContext>
                 <Navbar setOpen={setOpenSidebar} />
-                <div className=''>
+                <div className='w-full'>
                     <Sidebar open={openSidebar} />
-                    <main className="z-10 overflow-auto min-h-full w-full sm:px-10" >
+                    <main className="z-10 overflow-auto min-h-full  sm:px-10 " >
                         <Outlet></Outlet>
                     </main>
 

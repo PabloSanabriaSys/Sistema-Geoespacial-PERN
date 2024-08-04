@@ -11,7 +11,7 @@ export default function ChangeStyle() {
       <header>
         <button
           className={`p-2 rounded flex ${theme === 'light' ? 'bg-gray-100 text-black' : 'bg-gray-700 text-white'}`}
-          onClick={() => toggleTheme()}
+          onClick={toggleTheme}
         >
           <span className={`pi pi-${theme === 'light' ? 'sun' : 'moon'}  m-auto`}></span>
         </button>
