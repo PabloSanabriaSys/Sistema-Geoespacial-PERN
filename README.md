@@ -20,10 +20,10 @@ Se utilizo ReactJS para el desarrollo de las interfaces y Node js para la logica
 1. Abra la terminal y navegue a la carpeta del Frontend: `cd Frontend`.
 2. Instale las dependencias utilizando el comando: `npm install`.
 
-### Backend (Flask)
+### Backend (Express)
 
 1. Abra otra terminal y navegue a la carpeta del Backend: `cd Backend`.
-2. Instale las librerías necesarias ejecutando: `npm run dev`.
+2. Instale las dependencias necesarias ejecutando: `npm install`.
 
 ### Ejecución
 
